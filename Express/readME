@@ -1,0 +1,8 @@
+requirement to run
+    - install
+        "mongodb-community"
+
+run on terminal
+
+    - npm install
+    - npm start

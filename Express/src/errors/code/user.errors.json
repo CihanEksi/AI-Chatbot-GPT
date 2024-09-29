@@ -1,0 +1,22 @@
+{
+    "USER_NOT_FOUND": {
+        "message": "Please check your credentials and try again.",
+        "status": 401
+    },
+    "PASSWORD_INCORRECT": {
+        "message": "Please check your credentials and try again.",
+        "status": 400
+    },
+    "USER_ALREADY_EXISTS": {
+        "message": "Username already taken, please try another one.",
+        "status": 400
+    },
+    "SESSION_EXPIRED": {
+        "message": "Session expired or invalid, please login again.",
+        "status": 401
+    },
+    "USER-NOT-FOUND": {
+        "message": "User not found.",
+        "status": 404
+    }
+}

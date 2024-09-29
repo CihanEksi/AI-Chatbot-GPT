@@ -1,0 +1,10 @@
+{
+    "DATA_ENCRYPTION_ERROR": {
+        "status": 500,
+        "message": "An error occurred while encrypting data."
+    },
+    "DATA_DECRYPTION_ERROR": {
+        "status": 500,
+        "message": "An error occurred while decrypting data."
+    }
+}
