@@ -1,0 +1,6 @@
+{
+    "OPENAI_RESPONSE_ERROR": {
+        "status": 500,
+        "message": "An error occurred while processing the OpenAI response."
+    }
+}

@@ -13,11 +13,11 @@ const openai = new OpenAI({
 // ]
 
 async function askToOpenAI(messages, model = OPEN_AI_MODEL) {
-
+    
     const systemMessage = {
-        role: "system",
-        content: OPEN_AI_SYSTEM_CONTENT
-    }
+            role: "system",
+            content: OPEN_AI_SYSTEM_CONTENT
+    };
 
     const response = await openai.chat.completions.create({
         messages: [
@@ -26,8 +26,13 @@ async function askToOpenAI(messages, model = OPEN_AI_MODEL) {
         ],
         model: model
     });
+    const nextQuestion = response.choices?.[0].message.content;
+    
+    if(!nextQuestion) {
+        throw new Error('OPENAI_RESPONSE_ERROR');
+    }
 
-    return response.choices?.[0].message.content;
+    return nextQuestion;
 }
 
 

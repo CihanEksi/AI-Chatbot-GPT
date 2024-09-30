@@ -2,7 +2,8 @@ const {
     Questions,
     Answers,
     DefaultQuestions,
-} = require('../models');
+} = require('../../models');
+
 
 
 const getDialogLookups = () => {
@@ -10,12 +11,22 @@ const getDialogLookups = () => {
         {
             $lookup: {
                 from: 'answers',
-                localField: 'answerId',
-                foreignField: '_id',
+                localField: '_id',
+                foreignField: 'questionId',
                 as: 'answers',
             },
-        },
+        }
     ];
+};
+
+const getRandomDefaultQuestion = async () => {
+    const defaultLength = await DefaultQuestions.countDocuments();
+
+    const randomIndex = Math.floor(Math.random() * defaultLength);
+
+    const defaultQuestions = await DefaultQuestions.find({}).limit(1).skip(randomIndex).lean();
+
+    return defaultQuestions;
 };
 
 const getAllDialogs = async (filters = {}) => {
@@ -30,11 +41,41 @@ const getAllDialogs = async (filters = {}) => {
         });
     }
 
-    const questions = await Questions.aggregate(aggregate).sort({ createdAt: -1 }).lean();
+    const lookups = getDialogLookups();
+
+    aggregate.push(...lookups);
+
+    const questions = await Questions.aggregate(aggregate).sort({ createdAt: -1 });
 
     return questions;
 };
 
+
+const createQuestion = async (userId, question) => {
+    const createQuestion = await Questions.create({
+        userId: userId,
+        question: question,
+        answerId: null,
+    });
+
+    return createQuestion;
+}
+
+
+const createNewDialog = async (userId) => {
+    const defaultQuestions = await getRandomDefaultQuestion();
+
+    await createQuestion(userId, defaultQuestions[0].question);
+
+    const dialog = await getAllDialogs({ userId: userId });
+
+    return dialog;
+};
+
+
+
 module.exports = {
     getAllDialogs,
+    createNewDialog,
+    createQuestion,
 };

@@ -3,14 +3,20 @@ const app = express()
 const dialogController = require('../controllers/dialog.controller.js');
 const dialogValidation = require('../validations/dialog.validation.js');
 const authControl = require('../middlewares/authControl.middleware');
-const { validate } = require('../models/answers.model.js');
+const { validate } = require("../middlewares/validate.middleware.js");
 
 app.get(
-    '/list',
+    '/my-dialog',
     authControl,
     dialogController.getDialog
 );
 
+app.post(
+    "/answer",
+    authControl,
+    validate(dialogValidation.answer),
+    dialogController.answer
+)
 
 
 

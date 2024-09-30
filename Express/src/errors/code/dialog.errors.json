@@ -1,0 +1,14 @@
+{
+    "QUESTION_NOT_FOUND": {
+        "message": "Question not found",
+        "status": 400
+    },
+    "QUESTION_IS_NOT_YOURS": {
+        "message": "Question is not yours",
+        "status": 401
+    },
+    "ANSWER_ALREADY_EXISTS": {
+        "message": "Answer already exists, we are going to refresh your page to get the latest question to answer.",
+        "status": 400
+    }
+}

@@ -3,7 +3,6 @@ const catchError = require('../functions/catchError.function');
 
 const authControl = catchError(async (req, res, next) => {
     const { sessionID } = req.cookies;
-    console.log(sessionID, 'sessionID');
 
     if (!sessionID) {
         throw new Error('SESSION_EXPIRED');

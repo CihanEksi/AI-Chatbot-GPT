@@ -1,0 +1,8 @@
+POST http://localhost:3000/dialog/answer HTTP/1.1
+content-type: application/json
+Cookie: sessionID=c2p1tbOkx5HrvRABsUNFFPFt2a0N6sPG; Path=/
+
+{
+    "answer": "yes i think they are like an alien.",
+    "questionId": "66fac21bbc0befc4377c574a"
+}
