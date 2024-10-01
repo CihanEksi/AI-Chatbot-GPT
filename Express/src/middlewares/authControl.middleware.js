@@ -5,6 +5,7 @@ const authControl = catchError(async (req, res, next) => {
     const { sessionID } = req.cookies;
 
     if (!sessionID) {
+        console.log('SESSION ID NOT FOUND', sessionID);
         throw new Error('SESSION_EXPIRED');
     }
 

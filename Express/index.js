@@ -1,15 +1,23 @@
 const express = require('express');
 const session = require('express-session');
-const { PORT, SESSION_SECRET, SESSION_EXPIRATION } = require('./src/constants/config.constants');
+const { PORT, SESSION_SECRET, SESSION_EXPIRATION,CORS_ORIGINS } = require('./src/constants/config.constants');
 const methodOverride = require('method-override')
 const mainRouter = require('./src/routers/main.router');
 const errorHandler = require('./src/errors/errorHandler.errors');
 const cookieParser = require('cookie-parser');
+const cors = require('cors')
 
 require('./src/database/mongodb.database');
 
 const app = express();
+
+app.use(cors({
+    origin: CORS_ORIGINS, // Replace   
+    credentials: true
+}));
+
 app.use(cookieParser());
+
 
 app.use(session({
     secret: SESSION_SECRET,
@@ -20,6 +28,7 @@ app.use(session({
         maxAge: SESSION_EXPIRATION,
     }
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

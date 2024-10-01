@@ -11,6 +11,7 @@ const config = {
     OPEN_AI_KEY: process.env.OPEN_AI_KEY,
     OPEN_AI_SYSTEM_CONTENT: process.env.OPEN_AI_SYSTEM_CONTENT,
     OPEN_AI_MODEL: process.env.OPEN_AI_MODEL,
+    CORS_ORIGINS: process.env.CORS_ORIGINS.split(','),
 }
 
 const schema = joi.object({
@@ -23,6 +24,7 @@ const schema = joi.object({
     OPEN_AI_KEY: joi.string().required(),
     OPEN_AI_SYSTEM_CONTENT: joi.string().required(),
     OPEN_AI_MODEL: joi.string().required(),
+    CORS_ORIGINS: joi.array().items(joi.string()).required(),
 });
 
 const { error } = schema.validate(config);

@@ -45,7 +45,7 @@ const getAllDialogs = async (filters = {}) => {
 
     aggregate.push(...lookups);
 
-    const questions = await Questions.aggregate(aggregate).sort({ createdAt: -1 });
+    const questions = await Questions.aggregate(aggregate).sort({ createdAt: 1 });
 
     return questions;
 };

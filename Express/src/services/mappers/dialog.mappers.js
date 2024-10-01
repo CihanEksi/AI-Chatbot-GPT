@@ -1,10 +1,9 @@
 const { OPEN_AI_ROLES } = require('../../enums/openai.enums');
 
 const prepareDialogToOpenAi = (dialog=[]) => {
-    const reversedDialog = dialog.reverse();
     const dialogToOpenAi = [];
 
-    for (const dialogElement of reversedDialog) {
+    for (const dialogElement of dialog) {
         const question = dialogElement.question;
 
         dialogToOpenAi.push({
@@ -13,7 +12,6 @@ const prepareDialogToOpenAi = (dialog=[]) => {
         });
 
         const answers = dialogElement.answers;
-        console.log("answers", answers);
         for (const answer of answers) {
             dialogToOpenAi.push({
                 role: OPEN_AI_ROLES.user,

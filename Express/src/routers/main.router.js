@@ -5,6 +5,12 @@ const dialogRouter = require('./dialog.router.js');
 
 
 app.use('/auth', authRouter);
+
+// app.use('/auth', (req, res, next) => {
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     next();
+// });
+
 app.use('/dialog', dialogRouter);
 
 

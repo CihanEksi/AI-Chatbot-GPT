@@ -1,6 +1,6 @@
 GET http://localhost:3000/dialog/my-dialog HTTP/1.1
 content-type: application/json
-Cookie: sessionID=c2p1tbOkx5HrvRABsUNFFPFt2a0N6sPG; Path=/
+Cookie: sessionID=_cnO_glIZnjKVfMa8Q6wXh_rgtx6N6Bm; Path=/
 
 {
     "username": "admin",

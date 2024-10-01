@@ -19,7 +19,8 @@ const register = catchError(async (req, res) => {
     await usersServices.registerValidation(username, password);
 
     const user = await usersServices.register(username, password, session);
-
+    
+    res.cookie('sessionID', session.id);
     res.json(user);
 })
 
