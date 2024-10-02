@@ -56,7 +56,6 @@ const answer = async (body, userId) => {
 const getNextQuestionFromOpenAi = async (body, userId) => {
     const getLastDialog = await getDialog(userId);
     const formatToOpenAiAsk = prepareDialogToOpenAi(getLastDialog);
-    console.log(formatToOpenAiAsk, 'formatToOpenAiAsk');
     const openAiResponse = await askToOpenAI(formatToOpenAiAsk);
     await createQuestion(userId, openAiResponse);
 }

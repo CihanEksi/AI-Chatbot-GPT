@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { List, Avatar, Input, message, Button, Select, Space } from 'antd';
+import { List, Input, Button, Space } from 'antd';
 import useDialog from '../../hooks/useDialog';
-import axios from 'axios';
 import ChatBubble from '../../components/ChatBubble';
+import LogoutButton from '../../components/LogoutButton';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const ChatComponent = () => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
-    const { getDialogList,answerLastQuestion } = useDialog();
+    const { getDialogList, answerLastQuestion, isLoading } = useDialog();
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await getDialogList();
             setMessages(response.data);
-            console.log(response.data, 'response.data');
         };
 
         fetchData();
@@ -24,50 +24,78 @@ const ChatComponent = () => {
     };
 
     const handleSubmit = async () => {
-        const questionId = messages.at(-1)._id;
-        const answerResponse = await answerLastQuestion(questionId, inputValue);
-        const newMessages = answerResponse.data;
-        setMessages(newMessages);
-        setInputValue('');
+        
+            const questionId = messages?.at(-1)?._id;
+            if(!questionId) return;
+            const answerResponse = await answerLastQuestion(questionId, inputValue);
+            const newMessages = answerResponse.data;
+            setMessages(newMessages);
+            setInputValue('');
+        
     };
+
+    const onKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSubmit();
+        }
+    }
 
     return (
         <div
-            className='container mx-auto flex h-screen flex-col justify-between pb-2 pt-6'
+            className='w-full flex justify-center items-center'
         >
-            <List
-                dataSource={messages}
-                renderItem={(item) => {
-                    const answer = item.answers?.[0]?.answer;
-                    return (
-                        <>
-                            <ChatBubble
-                                messageText={item.question}
-                                isMine={false}
-                            />
-                            {answer && (
-                                <ChatBubble
-                                    messageText={answer}
-                                    isMine={true}
-                                />
-                            )}
-                        </>
-                    )
-                }}
+            <LogoutButton
+                className='absolute top-0 right-0 m-4 bg-red-500'
+                icon={<LogoutOutlined />}
             />
+            <div
+                className='border-2 border-gray-200 rounded-lg w-4/5 m-4 p-4'
+            >
+                <div
+                    className='flex flex-col justify-between w-full min-h-[92vh]'
+                >
+                    <List
+                        dataSource={messages}
+                        renderItem={(item) => {
+                            const answer = item.answers?.[0]?.answer;
+                            const answerId = item.answers?.[0]?._id;
+                            return (
+                                <>
+                                    <ChatBubble
+                                        key={item._id}
+                                        messageText={item.question}
+                                        isMine={false}
+                                    />
+                                    {answer && (
+                                        <ChatBubble
+                                            messageText={answer}
+                                            isMine={true}
+                                            key={answerId}
+                                        />
+                                    )}
+                                </>
+                            )
+                        }}
+                    />
 
-            <Space.Compact style={{ width: '100%' }}>
-                <Input
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    style={{ width: '100%' }}
-                    placeholder='Type an answer ...'
-                />
-                <Button type="primary"
-                    onClick={handleSubmit}
-                    disabled={!inputValue}
-                >Submit</Button>
-            </Space.Compact>
+                    <Space.Compact
+                        className='w-full'
+                    >
+                        <Input
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            className='w-full'
+                            placeholder='Type an answer ...'
+                            onKeyUp={onKeyPress}
+                        />
+                        <Button type="primary"
+                            onClick={handleSubmit}
+                            disabled={!inputValue}
+                            loading={isLoading}
+                        >Submit</Button>
+                    </Space.Compact>
+                </div >
+            </div>
         </div>
     );
 };

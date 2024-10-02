@@ -1,11 +1,14 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { Navigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
-const PrivatePage = ({ children }) => {
-  const isAuthenticated = Cookies.get('sessionID'); // Adjust authentication logic
-  return children;
-  return isAuthenticated ? children : <Navigate to="/login" />;
-};
+const PrivatePage = ({ component: RouteComponent }) => {
+  const sessionID = Cookies.get('sessionID')
 
-export default PrivatePage;
+  if (sessionID) {
+    return <RouteComponent />
+  }
+
+  return <Navigate to="/" />
+}
+
+export default PrivatePage

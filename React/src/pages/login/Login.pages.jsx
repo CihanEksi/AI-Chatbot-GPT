@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Flex, Spin } from 'antd';
-import { useState,useEffect } from 'react';
+import { Button, Form, Input, Spin } from 'antd';
+import { useState } from 'react';
 import useLogin from '../../hooks/useLogin';
 import Cookies from 'js-cookie';
-import router from '../../routes/router';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [isRegisterAction, setIsRegisterAction] = useState(false);
-    const { isLoading, error, handleLogin,handleRegister } = useLogin();
+    const { isLoading, handleLogin, handleRegister } = useLogin();
+    const navigate = useNavigate();
     const [form] = Form.useForm();
     const actionText = isRegisterAction ? 'Login Now!' : 'Register Now!';
     const actionNameText = isRegisterAction ? 'Register' : 'Login';
+
+    useEffect(() => {
+        const sessionID = Cookies.get('sessionID');
+        if (sessionID) {
+            navigate('/chat');
+        }
+    }, []);
 
     const onFinish = async (values) => {
         const username = values.username;
@@ -72,8 +80,8 @@ const Login = () => {
                         loader={<Spin />}
 
                     >
-                        <Button block type="primary" htmlType="submit" 
-                        loading={isLoading}
+                        <Button block type="primary" htmlType="submit"
+                            loading={isLoading}
                         >
                             {actionNameText}
                         </Button>

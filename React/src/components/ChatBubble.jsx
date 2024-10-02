@@ -1,24 +1,20 @@
 import React from 'react';
 import { Card } from 'antd';
 
-const ChatBubble = ({ messageText,isMine }) => {
+const ChatBubble = ({ messageText, isMine }) => {
+  const mineClass = 'self-end bg-blue-500 text-white';
+  const othersClass = 'self-start bg-gray-200 text-gray-800';
   return (
     <div
-    className='flex flex-col'
+      className='flex flex-col'
     >
 
-    <Card
-      style={{
-        width: 200,
-        borderRadius: 10,
-        padding: '10px',
-        marginBottom: '10px',
-        alignSelf: isMine ? 'flex-end' : 'flex-start',
-      }}
+      <Card
+        className={`w-52 rounded-lg ${isMine ? mineClass : othersClass} shadow-md mb-4`}
       >
-      {messageText}
-    </Card>
-      </div>
+        {messageText}
+      </Card>
+    </div>
   );
 };
 

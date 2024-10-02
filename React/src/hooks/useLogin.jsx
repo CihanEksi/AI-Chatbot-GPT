@@ -30,7 +30,7 @@ const useLogin = () => {
 
         try {
             const response = await registerRequest(username, password);
-
+            navigate('/chat');
             return response;
         } catch (error) {
             setError(error.message);
