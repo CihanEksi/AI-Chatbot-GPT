@@ -15,8 +15,10 @@ run on terminal
 ## Express Server document link on below:
 
 https://documenter.getpostman.com/view/14726468/2sAXxJjaoa
-
-![SS_1](https://github.com/CihanEksi/ChatBot/blob/master/Express/collection_description.png?raw=true)
+#Diagram
+![ChatBot Diagram](https://github.com/CihanEksi/ChatBot/blob/master/Express/collection_diagram.png?raw=true)
+# Diagram Desc
+![ChatBot Diagram Desc](https://github.com/CihanEksi/ChatBot/blob/master/Express/collection_description.png?raw=true)
 
 # Frontend
 
