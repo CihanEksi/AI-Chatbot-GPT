@@ -1,0 +1,15 @@
+# Chat Bot
+
+Developed a chatbot application using Express.js and React, powered by OpenAI. The chatbot generates new questions based on user responses, creating a dynamic and engaging conversation.
+
+# Backend
+
+## Express Server document link on below:
+
+https://documenter.getpostman.com/view/14726468/2sAXxJjaoa
+
+
+# Frontend
+
+Youtube UX Video
+(https://youtu.be/ZyByNJs89sQ "Watch on Youtube")
