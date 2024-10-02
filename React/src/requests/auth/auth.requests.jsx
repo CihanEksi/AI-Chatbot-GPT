@@ -6,8 +6,7 @@ const loginRequest = async (username, password) => {
         password,
     };
 
-    const response = await axios.post('/auth/login', payload);
-    
+    const response = await axios.post('/auth/login', payload)
     return response.data
 };
 

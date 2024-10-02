@@ -17,7 +17,6 @@ const useDialog = () => {
             return response;
         } catch (error) {
             setError(error.message);
-            message.error(error.message);
         } finally {
             setIsLoading(false);
         }
@@ -32,7 +31,6 @@ const useDialog = () => {
             return response;
         } catch (error) {
             setError(error.message);
-            message.error(error.message);
         } finally {
             setIsLoading(false);
         }
