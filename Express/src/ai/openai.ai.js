@@ -26,6 +26,11 @@ async function askToOpenAI(messages, model = OPEN_AI_MODEL) {
         ],
         model: model
     });
+
+    console.log([
+        systemMessage,
+        ...messages,
+    ],"messages");
     const nextQuestion = response.choices?.[0].message.content;
     
     if(!nextQuestion) {

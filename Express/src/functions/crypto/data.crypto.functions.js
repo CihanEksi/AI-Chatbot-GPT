@@ -1,36 +1,45 @@
-const bcrypt = require('bcrypt');
+const CryptoJS = require('crypto-js');
 const { DATA_SECRET } = require('../../constants/config.constants');
 
-const dataEncrypt = (data) => {
-
-    if (typeof data !== 'object') {
-        throw new Error('Data must be an object!');
-    }
-
+const stringEncrypt = (plainText) => {
     try {
-        data = JSON.stringify(data);
-        const encryptedData = bcrypt.hashSync(data, DATA_SECRET);
+        const encryptedData = CryptoJS.AES.encrypt(plainText, DATA_SECRET).toString();
         return encryptedData;
     } catch (error) {
-        console.log(error, 'error');
         throw new Error('DATA_ENCRYPTION_ERROR');
     }
-
 }
 
-
-const dataDecrypt = (data) => {
+const stringDecrypt = (data) => {
     try {
-        const decryptedData = bcrypt.compareSync(data, DATA_SECRET);
-        decryptedData = JSON.parse(decryptedData);
+        const decryptedData = CryptoJS.AES.decrypt(data, DATA_SECRET).toString(CryptoJS.enc.Utf8);
         return decryptedData;
     } catch (error) {
-        console.log(error, 'error');
         throw new Error('DATA_DECRYPTION_ERROR');
     }
 }
 
+const dataEncrypt = (data) => {
+    if (typeof data !== 'object') {
+        throw new Error('Data must be an object!');
+    }
+
+    data = JSON.stringify(data);
+    const encryptedData = stringEncrypt(data);
+
+    return encryptedData;
+}
+
+
+const dataDecrypt = (data) => {
+    const decryptedData = stringDecrypt(data);
+    decryptedData = JSON.parse(decryptedData);
+    return decryptedData;
+}
+
 module.exports = {
     dataEncrypt,
-    dataDecrypt
+    dataDecrypt,
+    stringEncrypt,
+    stringDecrypt,
 }

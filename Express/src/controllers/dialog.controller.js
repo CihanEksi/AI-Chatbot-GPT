@@ -28,12 +28,11 @@ const answer = catchError(async (req, res, next) => {
 
     await dialogService.answerValidation(req.body, userId);
     
+    await dialogService.answer(req.body, userId);
+    
     await dialogService.getNextQuestionFromOpenAi(req.body, userId);
     
-    await dialogService.answer(req.body, userId);
-
     getDialog(req, res, next);
-
 });
 
 module.exports = {

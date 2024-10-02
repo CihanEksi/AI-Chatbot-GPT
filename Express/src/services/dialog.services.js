@@ -2,6 +2,7 @@ const { getAllDialogs, createNewDialog, createQuestion } = require('../functions
 const { Questions, Answers } = require('../models');
 const { prepareDialogToOpenAi } = require('../services/mappers/dialog.mappers');
 const { askToOpenAI } = require('../ai/openai.ai');
+const { stringEncrypt } = require('../functions/crypto/data.crypto.functions');
 
 
 const getDialog = async (userId) => {
@@ -45,7 +46,7 @@ const answer = async (body, userId) => {
     const { questionId, answer } = body;
 
     const createAnswer = await Answers.create({
-        answer: answer,
+        answer: stringEncrypt(answer),
         questionId: questionId,
         userId: userId,
     });

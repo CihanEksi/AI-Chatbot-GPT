@@ -1,6 +1,7 @@
 const { OPEN_AI_ROLES } = require('../../enums/openai.enums');
+const { stringDecrypt } = require('../../functions/crypto/data.crypto.functions');
 
-const prepareDialogToOpenAi = (dialog=[]) => {
+const prepareDialogToOpenAi = (dialog = []) => {
     const dialogToOpenAi = [];
 
     for (const dialogElement of dialog) {
@@ -23,6 +24,22 @@ const prepareDialogToOpenAi = (dialog=[]) => {
     return dialogToOpenAi;
 }
 
+const decryptDialog = (dialog = []) => {
+    return dialog.map(dialogElement => {
+        const answers = dialogElement.answers.map(item => {
+            return {
+                ...item,
+                answer: stringDecrypt(item.answer),
+            }
+        });
+        return {
+            ...dialogElement,
+            answers
+        }
+    });
+}
+
 module.exports = {
     prepareDialogToOpenAi,
+    decryptDialog,
 }

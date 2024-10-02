@@ -3,6 +3,7 @@ const {
     Answers,
     DefaultQuestions,
 } = require('../../models');
+const { decryptDialog } = require('../../services/mappers/dialog.mappers');
 
 
 
@@ -47,7 +48,9 @@ const getAllDialogs = async (filters = {}) => {
 
     const questions = await Questions.aggregate(aggregate).sort({ createdAt: 1 });
 
-    return questions;
+    const readableQuestions = decryptDialog(questions);
+
+    return readableQuestions;
 };
 
 
