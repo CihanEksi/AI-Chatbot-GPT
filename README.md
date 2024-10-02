@@ -12,7 +12,7 @@ run on terminal
     - npm install
     - npm start
 
-## Express Server document link on below:
+## Express Server endpoint document link on below:
 
 https://documenter.getpostman.com/view/14726468/2sAXxJjaoa
 
